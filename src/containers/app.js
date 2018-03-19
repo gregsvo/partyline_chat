@@ -2,12 +2,17 @@ import { connect } from 'react-redux';
 import {
   addHistory,
   addMessage,
+  addTypingUser,
   addUser,
+  removeTypingUser,
   removeUser,
   setCurrentUserId,
-} from '../actions';import ChatHistory from '../components/ChatHistory';
+} from '../actions';
+import ChatHistory from '../components/ChatHistory';
 import ChatInput from '../components/ChatInput';
-import ChatUsers from '../components/chatUsers';
+import ChatUsers from '../components/ChatUsers';
+import ChatUsersTyping from '../components/ChatUsersTyping';
+
 import React from 'react';
 /* eslint-disable */
 
@@ -18,7 +23,7 @@ function mapStateToProps(state) {
     lastMessageTimestamp: state.app.get('lastMessageTimestamp'),
     userId: state.app.get('userId'),
     users: state.app.get('users').toJS(),
-
+    usersTyping: state.app.get('usersTyping').toJS(),
   };
 }
 
@@ -26,9 +31,11 @@ function mapDispatchToProps(dispatch) {
   return {
     addHistory: (messages, timestamp) => dispatch(addHistory(messages, timestamp)),
     addMessage: (message) => dispatch(addMessage(message)),
-    addUser: (userID) => dispatch(addUser(userID)),
-    removeUser: (userID) => dispatch(removeUser(userID)),
+    addUser: (userId) => dispatch(addUser(userId)),
+    removeUser: (userId) => dispatch(removeUser(userId)),
     setUserId: (userId) => dispatch(setCurrentUserId(userId)),
+    addTypingUser: (userId) => dispatch(addTypingUser(userId)),
+    removeTypingUser: (userId) => dispatch(removeTypingUser(userId)),
   };
 }
 
@@ -37,13 +44,16 @@ class App extends React.Component {
   static propTypes = {
     addHistory: React.PropTypes.func,
     addMessage: React.PropTypes.func,
+    addTypingUser: React.PropTypes.func,
     addUser: React.PropTypes.func,
     history: React.PropTypes.array,
     lastMessageTimestamp: React.PropTypes.string,
+    removeTypingUser: React.PropTypes.func,
     removeUser: React.PropTypes.func,
     setUserId: React.PropTypes.func,
     userId: React.PropTypes.number,
     users: React.PropTypes.array,
+    usersTyping: React.PropTypes.array,
   };
 
   state = {
@@ -84,19 +94,37 @@ class App extends React.Component {
     case 'timeout':
     this.props.removeUser(presenceData.uuid);
       break;
+    case 'state-change':
+      if (presenceData.data) {
+        if (presenceData.data.isTyping === true) {
+          this.props.addTypingUser(presenceData.uuid);
+        } else {
+          this.props.removeTypingUser(presenceData.uuid);
+        }
+      }
+      break;
     default:
       console.error('unknown action: ' + presenceData.action);
     }
   }
 
   render() {
-    const { fetchHistory, props, sendMessage } = this;
+    const { fetchHistory, props, sendMessage, setTypingState } = this;
     return (<div className="message-container">
       <ChatUsers users={ props.users } />
       <ChatHistory history={ props.history } fetchHistory={ fetchHistory } />
-      <ChatInput userId={ props.userId } sendMessage={ sendMessage } />
+      <ChatUsersTyping usersTyping={ props.usersTyping } />
+      <ChatInput userId={ props.userId } sendMessage={ sendMessage } setTypingState={ setTypingState } />
     </div>);
   }
+
+  setTypingState = (isTyping) => {
+    this.PubNub.state({
+      channel: 'GregDemoChat',
+      uuid: this.props.userId,
+      state: { isTyping },
+    });
+  };
 
   leaveChat = () => {
     this.PubNub.unsubscribe({ channel: 'GregDemoChat' });

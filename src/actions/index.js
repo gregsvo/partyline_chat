@@ -1,18 +1,17 @@
 import {
-  ADD_HISTORY,
   ADD_MESSAGE,
+  SET_CURRENT_USERID,
+  ADD_HISTORY,
   ADD_USER,
   REMOVE_USER,
-  SET_CURRENT_USERID,
+  ADD_TYPING_USER,
+  REMOVE_TYPING_USER,
 } from '../constants';
 
-export function addHistory(messages, timestamp) {
+export function setCurrentUserId(userId) {
   return {
-    type: ADD_HISTORY,
-    payload: {
-      messages,
-      timestamp,
-    },
+    type: SET_CURRENT_USERID,
+    payload: userId,
   };
 }
 
@@ -23,10 +22,13 @@ export function addMessage(message) {
   };
 }
 
-export function setCurrentUserId(userId) {
+export function addHistory(messages, timestamp) {
   return {
-    type: SET_CURRENT_USERID,
-    payload: userId,
+    type: ADD_HISTORY,
+    payload: {
+      messages,
+      timestamp,
+    },
   };
 }
 
@@ -40,6 +42,20 @@ export function addUser(userId) {
 export function removeUser(userId) {
   return {
     type: REMOVE_USER,
+    payload: userId,
+  };
+}
+
+export function addTypingUser(userId) {
+  return {
+    type: ADD_TYPING_USER,
+    payload: userId,
+  };
+}
+
+export function removeTypingUser(userId) {
+  return {
+    type: REMOVE_TYPING_USER,
     payload: userId,
   };
 }
