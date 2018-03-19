@@ -1,4 +1,10 @@
-import { ADD_HISTORY, ADD_MESSAGE, SET_CURRENT_USERID } from '../constants';
+import {
+  ADD_HISTORY,
+  ADD_MESSAGE,
+  ADD_USER,
+  REMOVE_USER,
+  SET_CURRENT_USERID,
+} from '../constants';
 
 export function addHistory(messages, timestamp) {
   return {
@@ -20,6 +26,20 @@ export function addMessage(message) {
 export function setCurrentUserId(userId) {
   return {
     type: SET_CURRENT_USERID,
+    payload: userId,
+  };
+}
+
+export function addUser(userId) {
+  return {
+    type: ADD_USER,
+    payload: userId,
+  };
+}
+
+export function removeUser(userId) {
+  return {
+    type: REMOVE_USER,
     payload: userId,
   };
 }
