@@ -69,18 +69,12 @@ export default class ChatInput extends React.Component {
 
   render() {
     const { onChange, onSubmit } = this;
-    // const imgURL = `//robohash.org/${props.userId}?set=set2&bgset=bg2&size=70x70`;
     return (
       <footer className="message-form">
         <form className="container" onSubmit={ onSubmit }>
           <div className="row">
             <div className="input-field col s10">
-              {/* <i className="prefix mdi-communication-chat" /> */}
               <input ref="txtMessage" type="text" placeholder="Send a Message" onChange={ onChange }/>
-              {/* <span className="chip left">
-                <img src={ imgURL } />
-                <span>User: { props.userId }</span>
-              </span> */}
             </div>
             <div className="input-field col s2">
               <button type="submit" className="waves-effect waves-light btn-floating btn-large">

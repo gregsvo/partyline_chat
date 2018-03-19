@@ -11,7 +11,7 @@ class ChatUsersTyping extends React.Component {
       <div className="typing-indicator-box">
         <ul>{
           usersTyping.map((userId) => {
-            const name = 'Anonymous Robot #' + userId;
+            const name = userId;
             const imgURL = '//robohash.org/' + userId + '?set=set2&bgset=bg2&size=70x70';
             return (
               <li key={ userId }>
