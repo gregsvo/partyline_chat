@@ -1,10 +1,7 @@
-import * as React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-class ChatUsers extends React.Component {
-  static propTypes = {
-    users: React.PropTypes.array,
-  }
-
+class ChatUsers extends Component {
   render() {
     const { users } = this.props;
     return (
@@ -28,5 +25,9 @@ class ChatUsers extends React.Component {
     );
   }
 }
+
+ChatUsers.propTypes = {
+  users: PropTypes.array,
+};
 
 export default ChatUsers;

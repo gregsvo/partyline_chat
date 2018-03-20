@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import {
   addHistory,
   addMessage,
@@ -13,7 +14,7 @@ import ChatInput from '../components/ChatInput';
 import ChatUsers from '../components/ChatUsers';
 import ChatUsersTyping from '../components/ChatUsersTyping';
 
-import React from 'react';
+import React, { Component } from 'react';
 /* eslint-disable */
 
 
@@ -39,23 +40,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-class App extends React.Component {
-
-  static propTypes = {
-    addHistory: React.PropTypes.func,
-    addMessage: React.PropTypes.func,
-    addTypingUser: React.PropTypes.func,
-    addUser: React.PropTypes.func,
-    history: React.PropTypes.array,
-    lastMessageTimestamp: React.PropTypes.string,
-    removeTypingUser: React.PropTypes.func,
-    removeUser: React.PropTypes.func,
-    setUserId: React.PropTypes.func,
-    userId: React.PropTypes.number,
-    users: React.PropTypes.array,
-    usersTyping: React.PropTypes.array,
-  };
-
+class App extends Component {
   state = {
     userId: Math.round(Math.random() * 1000000).toString(),
     history: [],
@@ -131,7 +116,6 @@ class App extends React.Component {
   }
 
   sendMessage = (message) => {
-    console.log("HERE IS WHERE WE WIRE IN SENDBIRD TO SEND A MESSAGE.")
     console.log('HERE IS WHERE WE WILL PASS TO SENDBIRD BACKEND: ', message);
     this.PubNub.publish({
       channel: 'GregDemoChat',
@@ -157,6 +141,21 @@ class App extends React.Component {
     });
   }
 }
+
+App.propTypes = {
+  addHistory: PropTypes.func,
+  addMessage: PropTypes.func,
+  addTypingUser: PropTypes.func,
+  addUser: PropTypes.func,
+  history: PropTypes.array,
+  lastMessageTimestamp: PropTypes.string,
+  removeTypingUser: PropTypes.func,
+  removeUser: PropTypes.func,
+  setUserId: PropTypes.func,
+  userId: PropTypes.number,
+  users: PropTypes.array,
+  usersTyping: PropTypes.array,
+};
 
 export default connect(
   mapStateToProps,

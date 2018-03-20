@@ -1,12 +1,7 @@
-import * as React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-export default class ChatInput extends React.Component {
-  static propTypes = {
-    userId: React.PropTypes.number,
-    sendMessage: React.PropTypes.func,
-    setTypingState: React.PropTypes.func,
-  };
-
+export default class ChatInput extends Component {
   componentDidMount() {
     this.refs.txtMessage.focus();
   }
@@ -101,3 +96,9 @@ export default class ChatInput extends React.Component {
     }, 3000);
   };
 }
+
+ChatInput.propTypes = {
+  userId: PropTypes.number,
+  sendMessage: PropTypes.func,
+  setTypingState: PropTypes.func,
+};

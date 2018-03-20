@@ -1,10 +1,7 @@
-import * as React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-class ChatUsersTyping extends React.Component {
-  static propTypes = {
-    usersTyping: React.PropTypes.array,
-  };
-
+class ChatUsersTyping extends Component {
   render() {
     const { usersTyping } = this.props;
     return (
@@ -29,5 +26,9 @@ class ChatUsersTyping extends React.Component {
     );
   }
 }
+
+ChatUsersTyping.propTypes = {
+  usersTyping: PropTypes.array,
+};
 
 export default ChatUsersTyping;

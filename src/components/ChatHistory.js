@@ -1,11 +1,8 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 
-class ChatHistory extends React.Component {
-  static propTypes = {
-    history: React.PropTypes.array,
-    fetchHistory: React.PropTypes.func,
-  };
+class ChatHistory extends Component {
 
   componentWillUpdate(nextProps) {
     this.historyChanged = nextProps.history.length !== this.props.history.length;
@@ -76,5 +73,10 @@ class ChatHistory extends React.Component {
     ReactDOM.findDOMNode(messageList).scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
   }
 }
+
+ChatHistory.propTypes = {
+  history: PropTypes.array,
+  fetchHistory: PropTypes.func,
+};
 
 export default ChatHistory;
