@@ -8,13 +8,36 @@
 .message-container, .message-form {
   display: flex;
 }
-
+/* BEGIN MESSAGE-FORM */
 .message-form {
   flex: 1;
   max-height: 136px;
-  background-color: #009688 !important;
-  color: white;
+  color: rgb(125, 125, 125);
 }
+
+.message-form .message-form-send-button button {
+  background-color: rgb(125, 125, 125);
+  transition: background-color 0.5s;
+
+}
+
+.message-form .input-field input {
+  border-color: rgb(125, 125, 125);
+  box-shadow: none;
+}
+
+.message-form .input-field input:focus {
+  box-shadow: none;
+  border-color: rgb(138, 138, 206);
+  border-width: 3px;
+
+}
+
+.message-form .message-form-input:focus + .message-form-send-button button {
+  background: rgb(138, 138, 206);
+}
+
+/* END MESSAGE-FORM */
 
 .message-list {
   flex: 1;
@@ -23,9 +46,8 @@
   margin-bottom: 0;
 }
 
-.message-form .input-field input {
-  border-color: #FFFFFF;
-}
+
+
 
 .chip {
   font-style: italic;
@@ -48,7 +70,7 @@
 .online-user-list {
   margin: 0;
   height: 68px;
-  background-color: #009688 !important;
+  /* background-color: #009688 !important; */
 }
 
 .online-user-list ul {
@@ -68,7 +90,7 @@
 }
 
 .online-users-number{
-  color: white;
+  color: rgb(125, 125, 125);
   margin-left: 10px;
   margin-right: 10px;
 }
@@ -84,7 +106,7 @@
   flex: 1;
   margin:0;
   max-height:45px;
-  background-color: #A2C4C9;
+  /* background-color: #A2C4C9; */
 }
 
 .typing-indicator-box ul {

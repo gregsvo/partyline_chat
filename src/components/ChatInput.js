@@ -68,11 +68,11 @@ export default class ChatInput extends Component {
       <footer className="message-form">
         <form className="container" onSubmit={ onSubmit }>
           <div className="row">
-            <div className="input-field col s10">
+            <div className="message-form-input input-field col s10 ">
               <input ref="txtMessage" type="text" placeholder="Send a Message" onChange={ onChange }/>
             </div>
-            <div className="input-field col s2">
-              <button type="submit" className="waves-effect waves-light btn-floating btn-large">
+            <div className="message-form-send-button input-field col s2 ">
+              <button type="submit" className="message-form-send-button waves-effect waves-light btn-floating btn-large">
                 <i className="mdi-content-send" />
               </button>
             </div>

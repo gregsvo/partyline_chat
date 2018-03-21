@@ -10,7 +10,8 @@ class ChatHistory extends Component {
       const { messageList } = this.refs;
       const scrollPos = messageList.scrollTop;
       const scrollBottom = (messageList.scrollHeight - messageList.clientHeight);
-      this.scrollAtBottom = (scrollBottom === 0) || (scrollPos === scrollBottom);
+      const scrollAcceptablyClose = (scrollPos > (scrollBottom - 5) && scrollPos < (scrollBottom + 5));
+      this.scrollAtBottom = (scrollBottom === 0) || (scrollAcceptablyClose);
       if (!this.scrollAtBottom) {
         const numMessages = messageList.childNodes.length;
         this.topMessage = numMessages === 0 ? null : messageList.childNodes[0];
@@ -19,13 +20,8 @@ class ChatHistory extends Component {
   }
 
   componentDidUpdate() {
-    if (this.historyChanged) {
-      if (this.scrollAtBottom) {
-        this.scrollToBottom();
-      }
-      if (this.topMessage) {
-        ReactDOM.findDOMNode(this.topMessage).scrollIntoView();
-      }
+    if (this.historyChanged && this.scrollAtBottom)  {
+      this.scrollToBottom();
     }
   }
 
