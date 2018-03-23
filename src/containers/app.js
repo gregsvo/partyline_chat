@@ -13,6 +13,7 @@ import ChatHistory from '../components/ChatHistory';
 import ChatInput from '../components/ChatInput';
 import ChatUsers from '../components/ChatUsers';
 import ChatUsersTyping from '../components/ChatUsersTyping';
+// import 'flamingo/dist/css/flamingo.min.css';
 
 import React, { Component } from 'react';
 /* eslint-disable */

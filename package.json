@@ -4,7 +4,7 @@
   "description": "Demo of chat widget for Partyline Project",
   "license": "MIT",
   "engines": {
-    "node": "4.x"
+    "node": "0.4.x"
   },
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack -p",
@@ -36,6 +36,7 @@
     "history": "^2.0.1",
     "html-webpack-plugin": "^2.9.0",
     "immutable": "^3.7.5",
+    "jest": "^22.4.3",
     "json-loader": "^0.5.3",
     "raw-loader": "^0.5.1",
     "react": "^15.0.1",
@@ -58,11 +59,16 @@
     "webpack-split-by-path": "0.0.8"
   },
   "dependencies": {
+    "@onshift/flamingo": "^0.12.0",
+    "@onshift/iris": "^1.0.3",
     "express": "^4.13.3",
     "helmet": "^2.0.0",
     "http-proxy": "^1.12.1",
     "moment": "^2.21.0",
+    "package.json": "^2.0.1",
     "prop-types": "^15.6.1",
+    "react-chat-elements": "^0.8.2",
+    "rimraf": "^2.6.2",
     "winston": "^2.1.1"
   },
   "keywords": [

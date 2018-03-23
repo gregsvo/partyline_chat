@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+// import { Input } from 'react-bootstrap';
+
 
 export default class ChatInput extends Component {
   componentDidMount() {
@@ -9,14 +11,12 @@ export default class ChatInput extends Component {
 
   onSubmit = (event) => {
     event.preventDefault();
-
     // Check if the message is empty and return if so
     const message = this.refs.txtMessage.value;
 
     if (message.length === 0) {
       return;
     }
-
     // Build a message object and send it
     const messageObj = {
       Who: this.props.userId,
@@ -70,7 +70,7 @@ export default class ChatInput extends Component {
         <form className="container" onSubmit={ onSubmit }>
           <div className="row">
             <div className="message-form-input input-field col s10 ">
-              <input ref="txtMessage" type="text" placeholder="Send a Message" onChange={ onChange }/>
+              <input ref="txtMessage" type="text" placeholder="Send a Message!" onChange={ onChange }/>
             </div>
             <div className="message-form-send-button input-field col s2 ">
               <button type="submit" className="message-form-send-button waves-effect waves-light btn-floating btn-large">
