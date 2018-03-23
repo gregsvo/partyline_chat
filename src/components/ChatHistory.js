@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import formatMessageDate from '../utils/messaging';
 
 class ChatHistory extends Component {
 
@@ -38,19 +39,16 @@ class ChatHistory extends Component {
     return (
       <ul className="collection message-list" ref="messageList" onScroll={ onScroll }>
         { props.history.map((messageObj) => {
+          const messageDate = formatMessageDate(messageObj.When);
           const imgURL = '//robohash.org/' + messageObj.Who + '?set=set2&bgset=bg2&size=70x70';
-          const messageDate = new Date(messageObj.When);
-          const messageDateTime = messageDate.toLocaleDateString() +
-            ' at ' + messageDate.toLocaleTimeString();
           return (
             <li className="collection-item message-item avatar" key={ messageObj.When }>
               <img src={ imgURL } alt={ messageObj.Who } className="circle" />
               <span className="title">{ messageObj.Who }</span>
               <p>
-                <i className="prefix mdi-action-alarm" />
-                <span className="message-date">{ messageDateTime }</span>
+                <span className="message-date">{ messageDate }</span>
                 <br />
-                <span>{ messageObj.What }</span>
+                <span className="message-text">{ messageObj.What }</span>
               </p>
             </li>
           );
@@ -68,6 +66,7 @@ class ChatHistory extends Component {
     const maxScrollTop = scrollHeight - height;
     ReactDOM.findDOMNode(messageList).scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
   }
+
 }
 
 ChatHistory.propTypes = {

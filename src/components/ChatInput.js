@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 export default class ChatInput extends Component {
   componentDidMount() {
@@ -20,7 +21,7 @@ export default class ChatInput extends Component {
     const messageObj = {
       Who: this.props.userId,
       What: message,
-      When: new Date().valueOf(),
+      When: moment.utc().valueOf(),
     };
 
     this.props.sendMessage(messageObj);

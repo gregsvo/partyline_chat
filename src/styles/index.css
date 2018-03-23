@@ -46,6 +46,10 @@
   margin-bottom: 0;
 }
 
+.message-text {
+  word-break: break-word
+}
+
 
 
 

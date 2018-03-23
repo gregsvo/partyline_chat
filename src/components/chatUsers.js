@@ -4,21 +4,20 @@ import PropTypes from 'prop-types';
 class ChatUsers extends Component {
   render() {
     const { users } = this.props;
+    const currentUserId = this.props.userId;
     return (
       <div className="online-user-list">
-        <div className="online-users-number valign-wrapper">
-          {/* <i className="material-icons">people</i> */}
-          <span className="valign">{ users.length } online</span>
-        </div>
         <ul>{
           users.map((userId) => {
-            const name = userId;
-            const imgURL = '//robohash.org/' + userId + '?set=set2&bgset=bg2&size=70x70';
-            return (
-              <li key={ userId }>
-                <img title={ name } alt={ name } src={ imgURL } className="circle" />
-              </li>
-            );
+            if (userId !== String(currentUserId)) {
+              const imgURL = `//robohash.org/${userId}?set=set2&bgset=bg2&size=70x70`;
+              return (
+                <li key={ userId }>
+                  <img title={ userId } alt={ userId } src={ imgURL } className="circle" />
+                </li>
+              );
+            }
+            return '';
           })
         }</ul>
       </div>
@@ -28,6 +27,7 @@ class ChatUsers extends Component {
 
 ChatUsers.propTypes = {
   users: PropTypes.array,
+  userId: PropTypes.number,
 };
 
 export default ChatUsers;

@@ -20,11 +20,11 @@ import React, { Component } from 'react';
 
 function mapStateToProps(state) {
   return {
-    history: state.app.get('messages').toJS(),
-    lastMessageTimestamp: state.app.get('lastMessageTimestamp'),
-    userId: state.app.get('userId'),
-    users: state.app.get('users').toJS(),
-    usersTyping: state.app.get('usersTyping').toJS(),
+    history: state.messages.get('messages').toJS(),
+    lastMessageTimestamp: state.messages.get('lastMessageTimestamp'),
+    userId: state.users.get('userId'),
+    users: state.users.get('users').toJS(),
+    usersTyping: state.users.get('usersTyping').toJS(),
   };
 }
 
@@ -96,9 +96,9 @@ class App extends Component {
   render() {
     const { fetchHistory, props, sendMessage, setTypingState } = this;
     return (<div className="message-container">
-      <ChatUsers users={ props.users } />
-      <ChatHistory history={ props.history } fetchHistory={ fetchHistory } />
-      <ChatUsersTyping usersTyping={ props.usersTyping } />
+      <ChatUsers users={ props.users } userId={ props.userId } />
+      <ChatHistory history={ props.history } fetchHistory={ fetchHistory } userId={ props.userId } />
+      <ChatUsersTyping usersTyping={ props.usersTyping } userId={ props.userId } />
       <ChatInput userId={ props.userId } sendMessage={ sendMessage } setTypingState={ setTypingState } />
     </div>);
   }
