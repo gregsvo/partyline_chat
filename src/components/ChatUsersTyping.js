@@ -17,7 +17,8 @@ class ChatUsersTyping extends Component {
     );
   }
   filterUserIdList = (userIdList, userId) => {
-    if (userIdList.indexOf(userId) > -1) {
+    const index = userIdList.indexOf(userId);
+    if (index > -1) {
       userIdList.splice(index, 1);
     }
     return userIdList;

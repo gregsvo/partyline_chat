@@ -11,7 +11,6 @@ class ChatUsers extends Component {
         <ul>{
           userIdList.map((userId) => {
             if (currentUserId !== userId) {
-              <div></div>;
               const imgURL = `//robohash.org/${userId}?set=set2&bgset=bg2&size=70x70`;
               return (
                 <li key={ userId }>

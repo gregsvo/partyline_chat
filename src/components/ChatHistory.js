@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import formatMessageDate from '../utils/messaging';
-// import { Image } from 'react-bootstrap';
-
 
 class ChatHistory extends Component {
   constructor() {
