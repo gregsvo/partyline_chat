@@ -2,15 +2,6 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const proxy = require('./server/webpack-dev-proxy');
-const SplitByPathPlugin = require('webpack-split-by-path');
-
-function getEntrySources(sources) {
-  // if (process.env.NODE_ENV !== 'production') {
-  //   sources.push('webpack-hot-middleware/client');
-  // }
-
-  return sources;
-}
 
 const basePlugins = [
   new webpack.DefinePlugin({
@@ -18,62 +9,43 @@ const basePlugins = [
     __PRODUCTION__: process.env.NODE_ENV === 'production',
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
   }),
-  new SplitByPathPlugin([
-    { name: 'vendor', path: [__dirname + '/node_modules/'] },
-  ]),
   new HtmlWebpackPlugin({
-    template: './src/index.html',
+    template: './index.html',
     inject: 'body',
   }),
 ];
 
-const devPlugins = [
-  new webpack.NoErrorsPlugin(),
-];
-
-const prodPlugins = [
-  new webpack.optimize.OccurenceOrderPlugin(),
-  new webpack.optimize.UglifyJsPlugin({
-    compressor: {
-      warnings: false,
-    },
-  }),
-  new webpack.NoErrorsPlugin(),
-];
-
-const plugins = basePlugins
-  .concat(process.env.NODE_ENV === 'production' ? prodPlugins : [])
-  .concat(process.env.NODE_ENV === 'development' ? devPlugins : []);
-
 module.exports = {
   entry: {
-    app: getEntrySources(['./src/index.js']),
+    app: path.join(__dirname, './src/index.js'),
   },
+  context: path.join(__dirname, './src'),
 
   output: {
     path: path.join(__dirname, 'dist'),
     filename: '[name].[hash].js',
-    publicPath: '/',
-    sourceMapFilename: '[name].[hash].js.map',
-    chunkFilename: '[id].chunk.js',
   },
+  mode: 'development',
 
   devtool: 'source-map',
-  plugins: plugins,
+  plugins: basePlugins,
 
   devServer: {
     historyApiFallback: { index: '/' },
     proxy: proxy(),
   },
 
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
+
   module: {
-    preLoaders: [
-      { test: /\.js$/, loader: 'source-map-loader' },
-      { test: /\.js$/, loader: 'eslint-loader' },
-    ],
-    loaders: [
-      { test: /\.css$/, loader: 'style-loader!raw-loader' },
-      { test: /\.js$/, loaders: ['react-hot', 'babel'], exclude: /node_modules/ },
+    rules: [
+      { test: /\.css$/, use: ['style-loader', 'css-loader'] },
+      { test: /\.less$/, use: ['style-loader', 'css-loader', 'less-loader']},
+      { test: /\.js$/, use: ['react-hot-loader', 'babel-loader'], exclude: /node_modules/ },
       { test: /\.json$/, loader: 'json-loader' },
       { test: /\.(png|jpg|jpeg|gif|svg)$/, loader: 'url-loader?prefix=img/&limit=5000' },
       { test: /\.(woff|woff2|ttf|eot)$/, loader: 'url-loader?prefix=font/&limit=5000' },

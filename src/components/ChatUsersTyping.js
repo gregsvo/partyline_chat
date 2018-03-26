@@ -1,30 +1,27 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import removeCurrentUserFromList from '../utils/messaging';
 
 class ChatUsersTyping extends Component {
   render() {
-    const filteredUserList = removeCurrentUserFromList(this.props.usersTyping, this.props.userId);
+    // const userIdList = this.props.usersTyping;
+    // const currentUserId = String(this.props.userId);
+    // const typingUsers = '';
+    const filteredUserIdList = this.filterUserIdList(this.props.usersTyping, String(this.props.userId));
+
     return (
       <div className="typing-indicator-box">
-        <ul>{
-          filteredUserList.map((userId) => {
-            const imgURL = `//robohash.org/${userId}?set=set2&bgset=bg2&size=70x70`;
-            return (
-              <li key={ userId }>
-                <img title={ userId } alt={ userId } src={ imgURL } className="circle" />
-                <div className="typing-indicator">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </li>
-            );
-          })
-        }</ul>
+        <ul>
+          {filteredUserIdList.join(', ') + (filteredUserIdList.length > 0 ? ' is typing' : '')}
+        </ul>
       </div>
     );
   }
+  filterUserIdList = (userIdList, userId) => {
+    if (userIdList.indexOf(userId) > -1) {
+      userIdList.splice(index, 1);
+    }
+    return userIdList;
+  };
 }
 
 ChatUsersTyping.propTypes = {

@@ -2,10 +2,14 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import formatMessageDate from '../utils/messaging';
-import { Image } from 'react-bootstrap';
+// import { Image } from 'react-bootstrap';
 
 
 class ChatHistory extends Component {
+  constructor() {
+    super();
+    this.state = { loadedAvatars: [] };
+  }
 
   componentWillUpdate(nextProps) {
     this.historyChanged = nextProps.history.length !== this.props.history.length;
@@ -45,8 +49,7 @@ class ChatHistory extends Component {
           const imgURL = `//robohash.org/${messageObj.Who}?set=set2&bgset=bg2&size=70x70`;
           return (
             <li className="collection-item message-item avatar" key={ messageObj.When }>
-              <Image src={ imgURL } circle />
-              {/* <img src={ imgURL } alt={ messageObj.Who } className="circle" /> */}
+              <img className="img-circle img-circle-md pull-left mr-sm" alt={ messageObj.Who } src={ imgURL }/>
               <span className="title">{ messageObj.Who }</span>
               <p>
                 <span className="message-date">{ messageDate }</span>

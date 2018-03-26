@@ -1,7 +1,6 @@
 import moment from 'moment';
-import _ from 'lodash';
 
-export function formatMessageDate(messageDate) {
+export default function formatMessageDate(messageDate) {
   const localMessageDate = moment.utc(messageDate).local();
   const currentDate = moment.utc().local();
 
@@ -15,8 +14,4 @@ export function formatMessageDate(messageDate) {
     return localMessageDate.format('dddd [at] h:mm A');
   }
   return localMessageDate.format('MMM Do [at] h:mm A');
-}
-
-export function removeCurrentUserFromList(userIdList, currentUserId) {
-  return _.pull(userIdList, [String(currentUserId)]);
 }

@@ -12,7 +12,7 @@ import routes from './store/routes';
 import configureStore from './store/configure-store';
 
 // Global styles
-import './styles/index.css';
+import './styles/index.less';
 
 const store = configureStore({});
 const history = syncHistoryWithStore(browserHistory, store);
